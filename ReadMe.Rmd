@@ -1,0 +1,38 @@
+---
+title: "geneAnnotations"
+author: "Katriona Goldmann"
+date: "3/7/2021"
+output: md_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(kableExtra)
+library(geneAnnotations)
+```
+
+
+# geneAnnotations
+
+This package annotated gene names and annotations. 
+
+For example for the entire gene summary: 
+
+```{r}
+gene_df <- gene_summary(genes=c("MS4A1", "FGF1", "SLAMF6"), diseases="C20")
+```
+
+
+```{r}
+kable(gene_df, format = "markdown")
+```
+
+Or to include publications
+
+```{r}
+gene_df <- gene_summary(genes=c("MS4A1", "FGF1", "SLAMF6"), 
+                        associated_diseases = FALSE,
+                        publications = TRUE)
+
+kable(gene_df, format = "markdown")
+```
