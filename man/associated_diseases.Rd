@@ -17,9 +17,9 @@ associated_diseases(
 \item{cutoff}{The DisGeNET Score cutoff}
 
 \item{disease_classes}{The MeSH disease classes to use
-(C"D20"=Immune System Diseases)}
+("C20"=Immune System Diseases)}
 
-\item{verbose}{Whether to spit out plotgress}
+\item{verbose}{Whether to spit out results}
 }
 \description{
 What diseases are known to be associated with genes

@@ -51,6 +51,7 @@ enriched_pathways <- function(genes,
   if(is.null(dbs)) {
     file_name <- system.file("extdata","enrichr_libraries.csv",
                              package = "geneAnnotations")
+    print(paste("Using", file_name, "databases"))
     enrichr_library <- read.table(file_name, sep=",",
                                   header=TRUE, stringsAsFactors = FALSE)
     
@@ -73,6 +74,7 @@ enriched_pathways <- function(genes,
 
   enriched <- enrichr(genes, dbs$libraryName)
 
+  if(length(enriched) == 0) stop("no libraries")
   temp <- do.call(rbind, enriched)
   temp$Library <- gsub("\\..*", "", rownames(temp))
   if(length(drop_terms) > 0) {
@@ -135,6 +137,7 @@ enriched_pathways <- function(genes,
 }
 
 #' @importFrom enrichR listEnrichrDbs
+#' @export
 enrichr_update_check <- function(){
   file_name <- system.file("extdata","enrichr_libraries.csv",
                            package = "geneAnnotations")

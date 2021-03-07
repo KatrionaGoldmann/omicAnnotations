@@ -33,7 +33,7 @@ if you have a lot of genes)}
 \item{disease_cutoff}{The DisGeNET Score cutoff}
 
 \item{diseases}{The MeSH disease classes to use
-("CD20"=Immune System Diseases)}
+("C20"=Immune System Diseases)}
 
 \item{publication_keywords}{Words to search for publications with the genes}
 

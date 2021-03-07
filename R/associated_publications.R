@@ -4,6 +4,8 @@
 #' @param split search keywords using AND or OR (default is OR)
 #' @importFrom pbapply pblapply
 #' @importFrom easyPubMed get_pubmed_ids fetch_pubmed_data custom_grep
+#' @export
+
 associated_publications <- function(genes, 
                                  keywords=c("rheumatoid", 
                                             "inflammatory", 
