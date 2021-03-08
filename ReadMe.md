@@ -1,7 +1,9 @@
 geneAnnotations
 ===============
 
-This package annotated gene names and annotations.
+This package annotated gene names and annotations. To install:
+
+    devtools::install_github("KatrionaGoldmann/GeneAnnotations")
 
 Summarising Genes
 -----------------
@@ -135,4 +137,4 @@ Plots
 
     lymphoid_pathways$plot
 
-![](ReadMe_files/figure-markdown_strict/unnamed-chunk-7-1.png)
+![](ReadMe_files/figure-markdown_strict/unnamed-chunk-8-1.png)

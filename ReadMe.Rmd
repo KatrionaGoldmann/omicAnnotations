@@ -14,7 +14,11 @@ library(geneAnnotations)
 
 # geneAnnotations
 
-This package annotated gene names and annotations. 
+This package annotated gene names and annotations. To install: 
+
+```{r, eval=FALSE}
+devtools::install_github("KatrionaGoldmann/GeneAnnotations")
+```
 
 ## Summarising Genes
 
