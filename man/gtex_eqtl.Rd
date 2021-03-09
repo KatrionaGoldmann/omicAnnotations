@@ -5,10 +5,11 @@
 \title{Multi-tissue eqtl}
 \usage{
 gtex_eqtl(
-  genes = c("ENSG00000248746.5"),
-  snps = c("chr11_66561248_T_C"),
+  genes = c("CYP26B1"),
+  snps = c("chr2_72209800_G_A"),
   gene_snp_pairs = c(),
-  p_only = TRUE
+  p_only = TRUE,
+  gencodeIDs = FALSE
 )
 }
 \arguments{

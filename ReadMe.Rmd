@@ -84,3 +84,20 @@ Plots
 ```{r}
 lymphoid_pathways$plot
 ```
+
+## GTex 
+
+```{r}
+g2s <- data.frame("Genes"=c("ERAP2", "ERAP2", "HLA-DRB9"), 
+                  "Snps"=c("chr5_96916728_G_A", "chr5_96916885_T_C", 
+                           "chr6_32620055_A_G"))
+
+df <- gtex_eqtl(gene_snp_pairs = g2s)
+```
+
+```{r, fig.height=10, message=FALSE}
+library(ComplexHeatmap)
+
+hm <- gtex_heatmap(df)
+draw(hm, heatmap_legend_side = "left")
+```

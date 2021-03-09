@@ -8,8 +8,6 @@
 #' @importFrom httr GET content
 #' @importFrom jsonlite fromJSON
 #' @export
-
-
 gtex_eqtl <- function(genes=c("CYP26B1"),
                       snps=c("chr2_72209800_G_A"),
                       gene_snp_pairs=c(),
@@ -22,9 +20,9 @@ gtex_eqtl <- function(genes=c("CYP26B1"),
     df <- gene_snp_pairs
   }
   colnames(df) <- c("Gene", "SNP")
-  df$gene_name = df$Gene
-  df$Gene = as.character(df$Gene)
-  df$SNP = as.character(df$SNP)
+  df$gene_name <- df$Gene
+  df$Gene <- as.character(df$Gene)
+  df$SNP <- as.character(df$SNP)
   
   if(! gencodeIDs){
     # First get the versioned genecodes
@@ -45,7 +43,7 @@ gtex_eqtl <- function(genes=c("CYP26B1"),
   }
   
   
-  out_df = data.frame()
+  out_df <- data.frame()
   for(i in 1:nrow(df)){
     call <- 
       paste0("https://gtexportal.org/rest/v1/association/metasoft?variantId=",
@@ -54,19 +52,19 @@ gtex_eqtl <- function(genes=c("CYP26B1"),
     get_eqtl_text <- httr::content(get_eqtl, "text", encoding = "UTF-8")
     if(get_eqtl_text != ""){
       gtex_list <- fromJSON(get_eqtl_text, flatten = FALSE)
-      gtex_df = gtex_list$metasoft
+      gtex_df <- gtex_list$metasoft
       if(length(gtex_df) > 0){
-        gtex_df = do.call(data.frame, gtex_df)
-        gtex_df = gtex_df[, c("datasetId", "gencodeId",  "variantId",  "metaP" , 
+        gtex_df <- do.call(data.frame, gtex_df)
+        gtex_df <- gtex_df[, c("datasetId", "gencodeId",  "variantId",  "metaP" , 
                               colnames(gtex_df)[! colnames(gtex_df) %in% 
                                                   c("datasetId", "gencodeId", 
                                                     "metaP" , "variantId")])]
       } else{
-        gtex_df = t(data.frame(c("gtex_v8", as.character(df$Gene[i]), 
+        gtex_df <- t(data.frame(c("gtex_v8", as.character(df$Gene[i]), 
                                  as.character(df$SNP[i]), NA, rep(NA, 49*4)), 
                                stringsAsFactors = F))
         
-        colnames(gtex_df) = 
+        colnames(gtex_df) <- 
           c('datasetId', 'gencodeId',  'variantId', 'metaP',
             paste0(rep(c('Adipose_Subcutaneous', 'Adipose_Visceral_Omentum', 
                          'Adrenal_Gland', 'Artery_Aorta', 'Artery_Coronary', 
@@ -87,7 +85,8 @@ gtex_eqtl <- function(genes=c("CYP26B1"),
                          'Esophagus_Gastroesophageal_Junction', 
                          'Esophagus_Mucosa', 'Esophagus_Muscularis', 
                          'Heart_Atrial_Appendage', 
-                         'Heart_Left_Ventricle', 'Kidney_Cortex', 'Liver', 'Lung', 
+                         'Heart_Left_Ventricle', 'Kidney_Cortex', 'Liver', 
+                         'Lung', 
                          'Minor_Salivary_Gland', 'Muscle_Skeletal', 
                          'Nerve_Tibial', 
                          'Ovary', 'Pancreas', 'Pituitary', 'Prostate', 
@@ -98,13 +97,47 @@ gtex_eqtl <- function(genes=c("CYP26B1"),
                          'Thyroid', 'Uterus', 'Vagina', 'Whole_Blood'), each=4),
                    rep(c(".mValue", ".nes", ".pValue", ".se"), 49)))
       }
-      out_df = rbind(out_df, gtex_df)
+      out_df <- rbind(out_df, gtex_df)
     } 
   }
-  if(p_only) out_df = out_df[, grepl('Id|metaP|pValue', colnames(out_df))]
-  out_df$Gene = df$gene_name[match(out_df$gencodeId, df$Gene)]
-  out_df = out_df[, c(ncol(out_df), c(1:(ncol(out_df)-1)))]
+  if(p_only) out_df <- out_df[, grepl('Id|metaP|pValue', colnames(out_df))]
+  out_df$Gene <- df$gene_name[match(out_df$gencodeId, df$Gene)]
+  out_df <- out_df[, c(ncol(out_df), c(1:(ncol(out_df)-1)))]
   
+  return(out_df)
+}
+
+
+#' gtex eqtl heatmap
+#'
+#' @param df A list of gene names in format genecode IDs
+#' @param colour_low Colour for most significant 
+#' @param colour_high Colour for least significant 
+#' @param grid_colour Colour for heatmap grid
+#' @param ... 
+#' @importFrom circlize colorRamp2
+#' @importFrom ComplexHeatmap Heatmap
+#' @importFrom grid gpar
+#' @export
+
+gtex_heatmap <- function(df, 
+                         colour_low = "blue", 
+                         colour_high="white",
+                         grid_colour=NULL, 
+                         p_cutoff=0.05,
+                         ...){
+  rownames(df) = paste0(df$Gene, "\n", df$variantId)
+  temp = df[, grepl("pValue", colnames(df)), drop=FALSE]
+  temp = -log10(temp)
   
-  return(list(out_df, df))
+  colnames(temp) = gsub("\\.pValue", "", colnames(temp))
+  m <- max(temp, na.rm=T)
+  temp[is.na(temp)] = m + 1e-50
+  
+  col_fun = colorRamp2(c(0, -log10(0.05), -log10(0.05), m), 
+                       c( "grey60", colour_low, colour_low, colour_high))
+  
+  Heatmap(t(temp),  name="-log10(p-value)",  col = col_fun, ..., 
+          rect_gp = gpar(col = grid_colour, lwd = 2))
+  
 }

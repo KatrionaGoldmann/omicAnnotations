@@ -3,7 +3,7 @@ geneAnnotations
 
 This package annotated gene names and annotations. To install:
 
-    devtools::install_github("KatrionaGoldmann/GeneAnnotations")
+    devtools::install_github("KatrionaGoldmann/geneAnnotations")
 
 Summarising Genes
 -----------------
@@ -138,3 +138,19 @@ Plots
     lymphoid_pathways$plot
 
 ![](ReadMe_files/figure-markdown_strict/unnamed-chunk-8-1.png)
+
+GTex
+----
+
+    g2s <- data.frame("Genes"=c("ERAP2", "ERAP2", "HLA-DRB9"), 
+                      "Snps"=c("chr5_96916728_G_A", "chr5_96916885_T_C", 
+                               "chr6_32620055_A_G"))
+
+    df <- gtex_eqtl(gene_snp_pairs = g2s)
+
+    library(ComplexHeatmap)
+
+    hm <- gtex_heatmap(df)
+    draw(hm, heatmap_legend_side = "left")
+
+![](ReadMe_files/figure-markdown_strict/unnamed-chunk-10-1.png)
