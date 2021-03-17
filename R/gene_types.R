@@ -10,11 +10,12 @@
 gene_types <- function(genes, types=NULL){
   
   if(is.null(types)){
-    types <- data("immume_genes")
+    data("immume_genes", package="geneAnnotations")
+    types <- immune_genes
   }
   
-  df <- data.frame("Gene"=genes)
-  df$type <- ""
+  df <- data.frame("Gene"=genes, "Type"="", "Function"="", 
+                   stringsAsFactors = FALSE)
   for(i in seq_along(types)){
     df$Type[grepl(types[[i]][1], df$Gene)] <- names(types)[i]
     df$Function[grepl(types[[i]][1], df$Gene)] <- types[[i]][2]
