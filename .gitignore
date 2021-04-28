@@ -39,4 +39,3 @@ vignettes/*.pdf
 .Renviron
 .DS_Store
 geneAnnotations.Rproj
-*.png
