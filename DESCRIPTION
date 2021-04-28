@@ -1,5 +1,5 @@
-Package: geneAnnotations
-Title: What the Package Does (One Line, Title Case)
+Package: omicAnnotations
+Title: Use databases to annotate genomic and transcriptomic data
 Version: 0.0.1
 Authors@R:
     person(given = "Katriona",
@@ -8,8 +8,8 @@ Authors@R:
            email = "k.goldmann@qmul.ac.uk",
            comment = c(ORCID = "0000-0002-9073-6323"))
 Description: What the package does (one paragraph).
-URL: https://github.com/KatrionaGoldmann/geneAnnotations
-BugReports: https://github.com/KatrionaGoldmann/geneAnnotations/issues
+URL: https://github.com/KatrionaGoldmann/omicAnnotations
+BugReports: https://github.com/KatrionaGoldmann/omicAnnotations/issues
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

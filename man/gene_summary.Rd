@@ -14,7 +14,7 @@ gene_summary(
   gene_types_list = NULL,
   disease_cutoff = 0,
   diseases = c("C20", "C05", "C10", "C17"),
-  publication_keywords = c("Rheuamtoid", "Autoimmune"),
+  publication_keywords = c("Rheumatoid", "Autoimmune"),
   publication_split = "OR"
 )
 }

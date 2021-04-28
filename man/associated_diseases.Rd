@@ -8,6 +8,7 @@ associated_diseases(
   genes,
   cutoff = 0,
   disease_classes = c("C20", "C05", "C10", "C17"),
+  delim = "; ",
   verbose = TRUE
 )
 }
@@ -18,6 +19,8 @@ associated_diseases(
 
 \item{disease_classes}{The MeSH disease classes to use
 ("C20"=Immune System Diseases)}
+
+\item{delim}{The deliminator for returning traits}
 
 \item{verbose}{Whether to spit out results}
 }

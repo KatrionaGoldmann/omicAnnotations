@@ -5,7 +5,7 @@
 \alias{immune_genes}
 \title{List of gene name structures and types}
 \format{
-An object of class \code{list} of length 51.
+An object of class \code{list} of length 52.
 }
 \usage{
 immune_genes

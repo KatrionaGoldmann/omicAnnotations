@@ -4,6 +4,7 @@
 #' @param cutoff The DisGeNET Score cutoff
 #' @param disease_classes The MeSH disease classes to use
 #' ("C20"=Immune System Diseases)
+#' @param delim The deliminator for returning traits
 #' @param verbose Whether to spit out results
 #' @references https://www.disgenet.org/api/#/GDA/gdaByGene
 #' @importFrom httr GET content
@@ -13,6 +14,7 @@
 associated_diseases <- function(genes,
                                 cutoff=0,
                                 disease_classes=c("C20", "C05", "C10", "C17"),
+                                delim="; ",
                                 verbose=TRUE){
   
   df <- data.frame("Gene"=genes, "Associated_diseases"="", 
@@ -35,7 +37,7 @@ associated_diseases <- function(genes,
       get_diseases_json <- fromJSON(get_diseases_text, flatten = FALSE)
       diseases <- unique(get_diseases_json$disease_name)
     } else{diseases<-""}
-    df$"Associated_diseases"[df$Gene == g] <<- paste(diseases, collapse="; ")
+    df$"Associated_diseases"[df$Gene == g] <<- paste(diseases, collapse=delim)
   })
   
   colnames(df)[2] <- paste0("Diseases_minscore_", cutoff, "_class_",
