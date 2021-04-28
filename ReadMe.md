@@ -3,12 +3,7 @@
 This package annotates SNPs and gene names for available databases and
 API. In particular this uses databases by:
 
-<img src="https://www.ebi.ac.uk/eccb/2016/wp-content/uploads/2016/03/EMBL-EBI.png" alt="EBI" height="100" style="margin:5px;"/>
-<img src="https://pbs.twimg.com/profile_images/1102971554097438721/jlBwbq2-_400x400.png" alt="EMR" height="100" style="margin:5px;"/>
-<img src="https://lw-static-files.s3.amazonaws.com/public/logos/2688.png" alt="enrichr" height="100" style="margin:5px;"/>
-<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/US-NLM-NCBI-Logo.svg/1200px-US-NLM-NCBI-Logo.svg.png" alt="ncbi" height="70" style="margin:5px; margin-bottom:25px;"/>
-<img src="https://lh4.googleusercontent.com/bQslJhi8fXIPK_Q7FII6M34DJrFriAt3paXvwuam_QfBvyaETGbdVn6qOqyQ-N9oVMqOXzeNbpLLeJKqM-q6CNal0gyeE-u-UnB52_BJK895wJES_XZO-UlcEVPDNj2qTArWGgP_" alt="gtex" height="70" style="margin:5px;"/>
-<img src="https://miro.medium.com/max/1200/1*09zn4xwEeADS3c4V5QUiRA.png" alt="pubmed" height="50" style="margin:5px;"/>
+<img src="https://www.ebi.ac.uk/eccb/2016/wp-content/uploads/2016/03/EMBL-EBI.png" alt="EBI" height="100" style="margin:5px;"/> &nbsp; <img src="https://pbs.twimg.com/profile_images/1102971554097438721/jlBwbq2-_400x400.png" alt="EMR" height="100" style="margin:5px;"/> &nbsp; <img src="https://lw-static-files.s3.amazonaws.com/public/logos/2688.png" alt="enrichr" height="100" style="margin:5px;"/> &nbsp; <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/US-NLM-NCBI-Logo.svg/1200px-US-NLM-NCBI-Logo.svg.png" alt="ncbi" height="90" style="margin:5px; margin-bottom:15px;"/> &nbsp; <img src="https://lh4.googleusercontent.com/bQslJhi8fXIPK_Q7FII6M34DJrFriAt3paXvwuam_QfBvyaETGbdVn6qOqyQ-N9oVMqOXzeNbpLLeJKqM-q6CNal0gyeE-u-UnB52_BJK895wJES_XZO-UlcEVPDNj2qTArWGgP_" alt="gtex" height="90" style="margin:5px;"/> &nbsp; <img src="https://miro.medium.com/max/1200/1*09zn4xwEeADS3c4V5QUiRA.png" alt="pubmed" height="70" style="margin:5px;"/>
 
 To install:
 
