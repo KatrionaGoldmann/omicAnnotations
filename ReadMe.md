@@ -1,8 +1,10 @@
 # omicAnnotations
 
-This package pools together information from different databases and APIs in order to annotate SNPs and genes. In particular this uses databases by:
+This package pools together information from different databases and
+APIs in order to annotate SNPs and genes. In particular this uses
+databases by:
 
-<a href="https://www.ebi.ac.uk/"><img src="https://www.ebi.ac.uk/eccb/2016/wp-content/uploads/2016/03/EMBL-EBI.png" alt="EBI" height="100" style="margin:5px;"/></a> &nbsp; <a href="https://www.qmul.ac.uk/whri/emr/"><img src="https://pbs.twimg.com/profile_images/1102971554097438721/jlBwbq2-_400x400.png" alt="EMR" height="100" style="margin:5px;"/></a> &nbsp; <a href="https://maayanlab.cloud/Enrichr/"><img src="https://lw-static-files.s3.amazonaws.com/public/logos/2688.png" alt="enrichr" height="100" style="margin:5px;"/></a> &nbsp; <a href="https://www.ncbi.nlm.nih.gov/"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/US-NLM-NCBI-Logo.svg/1200px-US-NLM-NCBI-Logo.svg.png" alt="ncbi" height="90" style="margin:5px; margin-bottom:15px;"/></a> &nbsp; <a href="https://www.gtexportal.org/home/"><img src="https://lh4.googleusercontent.com/bQslJhi8fXIPK_Q7FII6M34DJrFriAt3paXvwuam_QfBvyaETGbdVn6qOqyQ-N9oVMqOXzeNbpLLeJKqM-q6CNal0gyeE-u-UnB52_BJK895wJES_XZO-UlcEVPDNj2qTArWGgP_" alt="gtex" height="90" style="margin:5px;"/> </a>&nbsp; <a href="https://pubmed.ncbi.nlm.nih.gov/"><img src="https://miro.medium.com/max/1200/1*09zn4xwEeADS3c4V5QUiRA.png" alt="pubmed" height="70" style="margin:5px;"/></a>
+<a href="https://www.ebi.ac.uk/"><img src="./images/ebi.png" alt="EBI" height="70" style="margin:5px;"/></a>&nbsp;<a href="https://www.qmul.ac.uk/whri/emr/"><img src="./images/emr.png" alt="EMR" height="70" style="margin:5px;"/></a>&nbsp;<a href="https://maayanlab.cloud/Enrichr/"><img src="./images/enrichr.png" alt="enrichr" height="70" style="margin:5px;"/></a>&nbsp;<a href="https://www.ncbi.nlm.nih.gov/"><img src="./images/ncbi.png" alt="ncbi" height="70" style="margin:5px; margin-bottom:15px;"/></a>&nbsp;<a href="https://www.gtexportal.org/home/"><img src="./images/gtex.png" alt="gtex" height="50" style="margin:5px;"/></a> &nbsp;<a href="https://pubmed.ncbi.nlm.nih.gov/"><img src="./images/pubmed.png" alt="pubmed" height="70" style="margin:5px;"/></a>&nbsp;
 
 To install:
 
@@ -67,9 +69,9 @@ For example for the entire gene summary:
 You can check for publications focusing on genes with given terms.
 Either using `associated_publications`:
 
-    gene_pubs <- associated_publications(genes=c("FGF1"),
-                                         keywords=c("rheumatoid"),
-                                         split="OR",
+    gene_pubs <- associated_publications(genes=c("FGF1"), 
+                                         keywords=c("rheumatoid"), 
+                                         split="OR", 
                                          verbose=TRUE)
 
     kable(gene_pubs, format = "markdown", row.names=FALSE)
@@ -95,9 +97,9 @@ Either using `associated_publications`:
 
 Or `gene_summary`:
 
-    gene_df <- gene_summary(genes=c("FGF1"),
+    gene_df <- gene_summary(genes=c("FGF1"), 
                             associated_diseases = FALSE,
-                            gene_description=FALSE,
+                            gene_description=FALSE, 
                             publications = TRUE)
 
     ## [1] "Annotating EMR's favourites..."
@@ -156,7 +158,7 @@ Plots
 ### eQTL Catalogue
 
     eqtl_table <- associated_eqtl(genes=c("ENSG00000164308"), p_cutoff=1)
-    kable(eqtl_table, row.names=F)
+    kable(eqtl_table, row.names=F) 
 
 <table>
 <thead>
@@ -1538,7 +1540,7 @@ omicAnnotations can also be used to find out more info about SNPs.
 
     gwas_traits <- associated_traits(snps = c("rs2910686", "rs7329174"))
 
-    kable(gwas_traits, row.names = F)
+    kable(gwas_traits, row.names = F) 
 
 <table>
 <thead>
@@ -1577,7 +1579,7 @@ systemic lupus erythematosus; crohn’s disease
     eqtl_table <- associated_eqtl(snps = c("rs2910686", "rs7329174"),
                                   p_cutoff = 0.05)
 
-    kable(eqtl_table, row.names = F)
+    kable(eqtl_table, row.names = F) 
 
 <table>
 <thead>
@@ -2303,8 +2305,8 @@ T
 
 ### GTex
 
-    g2s <- data.frame("Genes"=c("ERAP2", "ERAP2", "HLA-DRB9"),
-                      "Snps"=c("chr5_96916728_G_A", "chr5_96916885_T_C",
+    g2s <- data.frame("Genes"=c("ERAP2", "ERAP2", "HLA-DRB9"), 
+                      "Snps"=c("chr5_96916728_G_A", "chr5_96916885_T_C", 
                                "chr6_32620055_A_G"))
 
     df <- gtex_eqtl(gene_snp_pairs = g2s)
