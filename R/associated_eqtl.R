@@ -4,19 +4,22 @@
 #' @param genes A list of gene names (ensembl IDs)
 #' @param p_cutoff The pvalue cutoff for returning associations
 #' @param verbose Whether to spit out results
+#' @param ncores The number of cores to use
 #' @references https://www.ebi.ac.uk/eqtl/api-docs/
 #' @importFrom httr GET content
 #' @importFrom jsonlite fromJSON
+#' @importFrom pbmcapply pbmclapply
 #' @export
 
 associated_eqtl <- function(snps=c(),
                             genes=c(),
-                            p_cutoff = 1e-5,
-                            verbose=FALSE){
+                            p_cutoff = 1,
+                            verbose=FALSE, 
+                            ncores=2){
   
   df <- data.frame()
-  
-  invisible(lapply(snps, function(rssnp){
+  print("Looking at SNPs")
+  pbmclapply(snps, function(rssnp){
     
     call1 = paste0("https://www.ebi.ac.uk/eqtl/api/associations/", rssnp)
     
@@ -27,9 +30,10 @@ associated_eqtl <- function(snps=c(),
       traits <- unique(do.call(rbind, get_assoc_json$`_embedded`$associations))
       df <<- rbind(df, data.frame(traits))
     }   
-  }))
+  }, mc.cores=ncores)
   
-  invisible(lapply(genes, function(g){
+  print("Looking at Genes")
+  pbmclapply(genes, function(g){
     
     call1 = paste0("https://www.ebi.ac.uk/eqtl/api/genes/", g, "/associations")
     
@@ -40,7 +44,7 @@ associated_eqtl <- function(snps=c(),
       traits <- unique(do.call(rbind, get_assoc_json$`_embedded`$associations))
       df <<- rbind(df, data.frame(traits))
     }   
-  }))
+  }, mc.cores=ncores)
   
   numeric_cols <- suppressWarnings(unlist(sapply(df, function(x) {
     ! all(is.na(as.numeric(as.character(x))))
@@ -59,3 +63,4 @@ associated_eqtl <- function(snps=c(),
   
   return(df)
 }
+
