@@ -8,12 +8,13 @@
 #' @importFrom jsonlite fromJSON
 #' @export
 
-associated_traits <- function(snps,
+associated_traits <- function(snps=c(),
                               delim="; ",
                               verbose=FALSE){
   
   df <- data.frame("SNPs"=snps, "Associated_traits"="", 
                    stringsAsFactors = FALSE)
+  
   
   lapply(snps, function(g){
     if(verbose) print(g)
@@ -26,11 +27,13 @@ associated_traits <- function(snps,
     get_assoc_text <- httr::content(get_assoc, "text", encoding = "UTF-8")
     if(get_assoc_text != "" & ! grepl("Internal Server Error", get_assoc_text)){
       get_assoc_json <- jsonlite::fromJSON(get_assoc_text, flatten = FALSE)
+      if(length(get_assoc_json$`_embedded`$associations$efoTraits) > 0){
       traits <- 
         unique(do.call(rbind, 
                        get_assoc_json$`_embedded`$associations$efoTraits))
       df$"Associated_traits"[df$SNPs == g] <<- 
         paste(traits$trait, collapse=delim)
+      }
     } else if(grepl("Internal Server Error", get_prices_text)){
       print("Cannot Reach GWAS catalogue. Please try again later")
     }else{
