@@ -17,9 +17,8 @@ associated_eqtl <- function(snps=c(),
                             verbose=FALSE, 
                             ncores=2){
   
-  df <- data.frame()
   print("Looking at SNPs")
-  pbmclapply(snps, function(rssnp){
+  snp_df <- invisible(pbmclapply(snps, function(rssnp){
     
     call1 = paste0("https://www.ebi.ac.uk/eqtl/api/associations/", rssnp)
     
@@ -28,12 +27,13 @@ associated_eqtl <- function(snps=c(),
     if(get_assoc_text != "" & ! grepl("Internal Server Error", get_assoc_text)){
       get_assoc_json <- jsonlite::fromJSON(get_assoc_text, flatten = FALSE)
       traits <- unique(do.call(rbind, get_assoc_json$`_embedded`$associations))
-      df <<- rbind(df, data.frame(traits))
-    }   
-  }, mc.cores=ncores)
+      return( data.frame(traits))
+    } else {return(NULL)}
+  }, mc.cores=ncores))
+  snp_df <- do.call(rbind, snp_df)
   
   print("Looking at Genes")
-  pbmclapply(genes, function(g){
+  gene_df <- invisible(pbmclapply(genes, function(g){
     
     call1 = paste0("https://www.ebi.ac.uk/eqtl/api/genes/", g, "/associations")
     
@@ -42,9 +42,13 @@ associated_eqtl <- function(snps=c(),
     if(get_assoc_text != "" & ! grepl("Internal Server Error", get_assoc_text)){
       get_assoc_json <- jsonlite::fromJSON(get_assoc_text, flatten = FALSE)
       traits <- unique(do.call(rbind, get_assoc_json$`_embedded`$associations))
-      df <<- rbind(df, data.frame(traits))
-    }   
-  }, mc.cores=ncores)
+     # df <<- rbind(df, )
+      return(data.frame(traits))
+    } else{ return(NULL)}
+  }, mc.cores=ncores))
+  gene_df <- do.call(rbind, gene_df)
+  
+  df <- rbind(snp_df, gene_df)
   
   numeric_cols <- suppressWarnings(unlist(sapply(df, function(x) {
     ! all(is.na(as.numeric(as.character(x))))

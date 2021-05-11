@@ -101,6 +101,7 @@ lymphoid_pathways$plot
 
 ```{r}
 eqtl_table <- associated_eqtl(genes=c("ENSG00000164308"), p_cutoff=1)
+
 kable(eqtl_table, row.names=F) 
 ```
 

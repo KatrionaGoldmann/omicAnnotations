@@ -9,7 +9,8 @@ gene_types(genes, types = NULL)
 \arguments{
 \item{genes}{A list of gene names}
 
-\item{types}{A list of annotation type where each contains a
+\item{types}{A data frame of annotation types with columns for: the a
+nnotation name, the contains a
 character vector for grep command and general info about the gene. If NULL
 immune_genes are used}
 }

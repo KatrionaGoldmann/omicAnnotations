@@ -4,10 +4,13 @@
 \alias{gene_description}
 \title{Rentrez gene descriptions}
 \usage{
-gene_description(genes)
+gene_description(genes, retmax = 50)
 }
 \arguments{
 \item{genes}{A list of gene names}
+
+\item{retmax}{The number of NCBI hits to try. If you are struggling to find
+info try increasing this, although it will become slower (default=50).}
 }
 \description{
 Rentrez gene descriptions

@@ -11,7 +11,8 @@ gene_summary(
   gene_description = TRUE,
   associated_diseases = TRUE,
   publications = FALSE,
-  gene_types_list = NULL,
+  gene_types_df = NULL,
+  ncbi_retmax = 50,
   disease_cutoff = 0,
   diseases = c("C20", "C05", "C10", "C17"),
   publication_keywords = c("Rheumatoid", "Autoimmune"),
@@ -29,6 +30,14 @@ gene_summary(
 
 \item{publications}{Do you want pulication info? (This is time consuming
 if you have a lot of genes)}
+
+\item{gene_types_df}{A data frame of annotation types with columns for: the
+annotation name, the contains a
+character vector for grep command and general info about the gene. If NULL
+system.file("extdata","immune_genes.txt", package = "omicAnnotations")}
+
+\item{ncbi_retmax}{The number of NCBI hits to try. If you are struggling to find
+info try increasing this, although it will become slower (default=50).}
 
 \item{disease_cutoff}{The DisGeNET Score cutoff}
 

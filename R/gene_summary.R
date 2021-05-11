@@ -7,6 +7,12 @@
 #' @param associated_diseases Whether to find the associated diseases
 #' @param publications Do you want pulication info? (This is time consuming
 #' if you have a lot of genes)
+#' @param gene_types_df A data frame of annotation types with columns for: the 
+#' annotation name, the contains a
+#' character vector for grep command and general info about the gene. If NULL
+#' system.file("extdata","immune_genes.txt", package = "omicAnnotations")
+#' @param ncbi_retmax The number of NCBI hits to try. If you are struggling to find
+#' info try increasing this, although it will become slower (default=50). 
 #' @param disease_cutoff The DisGeNET Score cutoff
 #' @param diseases The MeSH disease classes to use
 #' ("C20"=Immune System Diseases)
@@ -22,7 +28,8 @@ gene_summary <- function(genes,
                          gene_description=TRUE,
                          associated_diseases=TRUE,
                          publications=FALSE,
-                         gene_types_list = NULL,
+                         gene_types_df = NULL,
+                         ncbi_retmax=50,
                          disease_cutoff=0,
                          diseases=c("C20", "C05", "C10", "C17"),
                          publication_keywords=c("Rheumatoid", "Autoimmune"),
@@ -30,14 +37,16 @@ gene_summary <- function(genes,
   df <- data.frame("Gene"=genes)
 
   if(gene_types){
-    print("Annotating EMR's favourites...")
-    df$Type <- gene_types(genes, gene_types_list)$Type
+    print("Annotating from self-curated data...")
+    temp = gene_types(genes, gene_types_df)
+    df$Type <- temp$Type
+    df$Curated_description <- temp$Description
   }
 
   if(gene_description){
     print("Getting gene summaries...")
-    temp <- gene_description(genes)
-    df <- cbind(df, temp[match(df$Gene, temp$Gene),
+    temp <- data.frame(gene_description(genes))
+    df <- cbind(df, temp[match(df$Gene, temp[, "Gene"]),
                          c("description", "summary")])
   }
 
@@ -59,7 +68,6 @@ gene_summary <- function(genes,
   }
 
   df[is.na(df)] <- ""
-  rownames(df) <- df$Gene
 
   return(df)
 }

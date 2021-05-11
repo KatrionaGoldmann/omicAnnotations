@@ -4,7 +4,8 @@ This package pools together information from different databases and
 APIs in order to annotate SNPs and genes. In particular this uses
 databases by:
 
-<a href="https://www.ebi.ac.uk/"><img src="./images/ebi.png" alt="EBI" height="70" style="margin:5px;"/></a>&nbsp;<a href="https://www.qmul.ac.uk/whri/emr/"><img src="./images/emr.png" alt="EMR" height="70" style="margin:5px;"/></a>&nbsp;<a href="https://maayanlab.cloud/Enrichr/"><img src="./images/enrichr.png" alt="enrichr" height="70" style="margin:5px;"/></a>&nbsp;<a href="https://www.ncbi.nlm.nih.gov/"><img src="./images/ncbi.png" alt="ncbi" height="70" style="margin:5px; margin-bottom:15px;"/></a>&nbsp;<a href="https://www.gtexportal.org/home/"><img src="./images/gtex.png" alt="gtex" height="50" style="margin:5px;"/></a> &nbsp;<a href="https://pubmed.ncbi.nlm.nih.gov/"><img src="./images/pubmed.png" alt="pubmed" height="70" style="margin:5px;"/></a>&nbsp;
+<a href="https://www.ebi.ac.uk/"><img src="./images/ebi.png" alt="EBI" height="70" style="margin:5px;"/></a> <a href="https://www.qmul.ac.uk/whri/emr/"><img src="./images/emr.png" alt="EMR" height="70" style="margin:5px;"/></a> <a href="https://maayanlab.cloud/Enrichr/"><img src="./images/enrichr.png" alt="enrichr" height="70" style="margin:5px;"/></a> <a href="https://www.ncbi.nlm.nih.gov/"><img src="./images/ncbi.png" alt="ncbi" height="70" style="margin:5px; margin-bottom:15px;"/></a> <a href="https://www.gtexportal.org/home/"><img src="./images/gtex.png" alt="gtex" height="50" style="margin:5px;"/></a>
+ <a href="https://pubmed.ncbi.nlm.nih.gov/"><img src="./images/pubmed.png" alt="pubmed" height="70" style="margin:5px;"/></a> 
 
 To install:
 
@@ -16,24 +17,26 @@ For example for the entire gene summary:
 
     gene_df <- gene_summary(genes=c("FMOD", "FGF1", "SLAMF6"), diseases="C20")
 
-    ## [1] "Annotating EMR's favourites..."
+    ## [1] "Annotating from self-curated data..."
     ## [1] "Getting gene summaries..."
     ## [1] "Finding associated diseases..."
 
     kable(gene_df, format = "markdown", row.names = FALSE)
 
-<table>
+<table style="width:100%;">
 <colgroup>
 <col style="width: 0%" />
 <col style="width: 2%" />
 <col style="width: 2%" />
-<col style="width: 72%" />
-<col style="width: 22%" />
+<col style="width: 2%" />
+<col style="width: 70%" />
+<col style="width: 21%" />
 </colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Gene</th>
 <th style="text-align: left;">Type</th>
+<th style="text-align: left;">Curated_description</th>
 <th style="text-align: left;">description</th>
 <th style="text-align: left;">summary</th>
 <th style="text-align: left;">Associated_diseases</th>
@@ -43,6 +46,7 @@ For example for the entire gene summary:
 <tr class="odd">
 <td style="text-align: left;">FMOD</td>
 <td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;">fibromodulin</td>
 <td style="text-align: left;">Fibromodulin belongs to the family of small interstitial proteoglycans. The encoded protein possesses a central region containing leucine-rich repeats with 4 keratan sulfate chains, flanked by terminal domains containing disulphide bonds. Owing to the interaction with type I and type II collagen fibrils and in vitro inhibition of fibrillogenesis, the encoded protein may play a role in the assembly of extracellular matrix. It may also regulate TGF-beta activities by sequestering TGF-beta into the extracellular matrix. Sequence variations in this gene may be associated with the pathogenesis of high myopia. Alternative splicing results in multiple transcript variants. [provided by RefSeq, Jun 2013]</td>
 <td style="text-align: left;">Chronic Lymphocytic Leukemia; Lymphoma; B-Cell Lymphomas; Malignant lymphoma, lymphocytic, intermediate differentiation, diffuse; Adult Lymphoma; Childhood Lymphoma</td>
@@ -51,11 +55,13 @@ For example for the entire gene summary:
 <td style="text-align: left;">FGF1</td>
 <td style="text-align: left;">Fibroblast Growth Factors</td>
 <td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
+<td style="text-align: left;">fibroblast growth factor 1</td>
+<td style="text-align: left;">The protein encoded by this gene is a member of the fibroblast growth factor (FGF) family. FGF family members possess broad mitogenic and cell survival activities, and are involved in a variety of biological processes, including embryonic development, cell growth, morphogenesis, tissue repair, tumor growth and invasion. This protein functions as a modifier of endothelial cell migration and proliferation, as well as an angiogenic factor. It acts as a mitogen for a variety of mesoderm- and neuroectoderm-derived cells in vitro, thus is thought to be involved in organogenesis. Multiple alternatively spliced variants encoding different isoforms have been described. [provided by RefSeq, Jan 2009]</td>
 <td style="text-align: left;">Rheumatoid Arthritis; Asthma; Acquired Immunodeficiency Syndrome; Diabetes Mellitus, Insulin-Dependent; Multiple Myeloma; Multiple Sclerosis; HIV Encephalopathy; HIV encephalitis; Thyroid associated opthalmopathies</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">SLAMF6</td>
+<td style="text-align: left;"></td>
 <td style="text-align: left;"></td>
 <td style="text-align: left;">SLAM family member 6</td>
 <td style="text-align: left;">The protein encoded by this gene is a type I transmembrane protein, belonging to the CD2 subfamily of the immunoglobulin superfamily. This encoded protein is expressed on Natural killer (NK), T, and B lymphocytes. It undergoes tyrosine phosphorylation and associates with the Src homology 2 domain-containing protein (SH2D1A) as well as with SH2 domain-containing phosphatases (SHPs). It functions as a coreceptor in the process of NK cell activation. It can also mediate inhibitory signals in NK cells from X-linked lymphoproliferative patients. Alternative splicing results in multiple transcript variants encoding distinct isoforms.[provided by RefSeq, May 2010]</td>
@@ -102,7 +108,7 @@ Or `gene_summary`:
                             gene_description=FALSE, 
                             publications = TRUE)
 
-    ## [1] "Annotating EMR's favourites..."
+    ## [1] "Annotating from self-curated data..."
     ## [1] "Getting publications from PubMed..."
 
     kable(gene_df, format = "markdown", row.names=FALSE)
@@ -111,12 +117,14 @@ Or `gene_summary`:
 <colgroup>
 <col style="width: 0%" />
 <col style="width: 0%" />
-<col style="width: 99%" />
+<col style="width: 0%" />
+<col style="width: 98%" />
 </colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Gene</th>
 <th style="text-align: left;">Type</th>
+<th style="text-align: left;">Curated_description</th>
 <th style="text-align: left;">Publications</th>
 </tr>
 </thead>
@@ -124,7 +132,8 @@ Or `gene_summary`:
 <tr class="odd">
 <td style="text-align: left;">FGF1</td>
 <td style="text-align: left;">Fibroblast Growth Factors</td>
-<td style="text-align: left;">The transcriptomic profiling of SARS-CoV-2 compared to SARS, MERS, EBOV, and H1N1.; sICAM-1 as potential additional parameter in the discrimination of the Sjögren syndrome and non-autoimmune sicca syndrome: a pilot study.; Oligodendroglial fibroblast growth factor receptor 1 gene targeting protects mice from experimental autoimmune encephalomyelitis through ERK/AKT phosphorylation.; [Effects of Huatan Tongluo Recipe on IL-1β-induced Proliferation of Rheumatoid Arthritis Synovial Fibroblasts and the Production of TNF-α and aFGF].; Dysregulation of pathways involved in the processing of cancer and microenvironment information in MCA + TPA transformed C3H/10T1/2 cells.; Fibroblast growth factors, fibroblast growth factor receptors, diseases, and drugs.; VEGF, FGF1, FGF2 and EGF gene polymorphisms and psoriatic arthritis.; Cutaneous gene expression by DNA microarray in murine sclerodermatous graft-versus-host disease, a model for human scleroderma.; Transcription factor Ets-1 regulates fibroblast growth factor-1-mediated angiogenesis in vivo: role of Ets-1 in the regulation of the PI3K/AKT/MMP-1 pathway.; Angiocidal effect of Cyclosporin A: a new therapeutic approach for pathogenic angiogenesis.; Induction of RANKL expression and osteoclast maturation by the binding of fibroblast growth factor 2 to heparan sulfate proteoglycan on rheumatoid synovial fibroblasts.; Acidic fibroblast growth factor in synovial cells.; Characterization of tissue outgrowth developed in vitro in patients with rheumatoid arthritis: involvement of T cells in the development of tissue outgrowth.; Lack of FGF-1 overexpression during autoimmune nephritis in the kidneys of MRL lpr/lpr mice.; Fibroblast growth factor-1 (FGF-1) enhances IL-2 production and nuclear translocation of NF-kappaB in FGF receptor-bearing Jurkat T cells.; Cloning and characterization of a novel upstream untranslated exon of the mouse Fgf-1 gene.; Cloning and characterization of the mouse Fgf-1 gene.; A novel in vitro assay for human angiogenesis.; Expression and functional expansion of fibroblast growth factor receptor T cells in rheumatoid synovium and peripheral blood of patients with rheumatoid arthritis.; Environmental influences on fatty acid composition of membranes from autoimmune MRL lpr/lpr mice.; Costimulation of human CD4+ T cells by fibroblast growth factor-1 (acidic fibroblast growth factor).; Detection of T cells responsive to a vascular growth factor in rheumatoid arthritis.; Coexpression of phosphotyrosine-containing proteins, platelet-derived growth factor-B, and fibroblast growth factor-1 in situ in synovial tissues of patients with rheumatoid arthritis and Lewis rats with adjuvant or streptococcal cell wall arthritis.; Platelet-derived growth factors and heparin-binding (fibroblast) growth factors in the synovial tissue pathology of rheumatoid arthritis.; Fibroblast growth factors: from genes to clinical applications.; Production of platelet derived growth factor B chain (PDGF-B/c-sis) mRNA and immunoreactive PDGF B-like polypeptide by rheumatoid synovium: coexpression with heparin binding acidic fibroblast growth factor-1.; Detection of high levels of heparin binding growth factor-1 (acidic fibroblast growth factor) in inflammatory arthritic joints.</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">FGF/FGFR Pathways in Multiple Sclerosis and in Its Disease Models.; The transcriptomic profiling of SARS-CoV-2 compared to SARS, MERS, EBOV, and H1N1.; sICAM-1 as potential additional parameter in the discrimination of the Sjögren syndrome and non-autoimmune sicca syndrome: a pilot study.; Oligodendroglial fibroblast growth factor receptor 1 gene targeting protects mice from experimental autoimmune encephalomyelitis through ERK/AKT phosphorylation.; [Effects of Huatan Tongluo Recipe on IL-1β-induced Proliferation of Rheumatoid Arthritis Synovial Fibroblasts and the Production of TNF-α and aFGF].; Dysregulation of pathways involved in the processing of cancer and microenvironment information in MCA + TPA transformed C3H/10T1/2 cells.; Fibroblast growth factors, fibroblast growth factor receptors, diseases, and drugs.; VEGF, FGF1, FGF2 and EGF gene polymorphisms and psoriatic arthritis.; Cutaneous gene expression by DNA microarray in murine sclerodermatous graft-versus-host disease, a model for human scleroderma.; Transcription factor Ets-1 regulates fibroblast growth factor-1-mediated angiogenesis in vivo: role of Ets-1 in the regulation of the PI3K/AKT/MMP-1 pathway.; Angiocidal effect of Cyclosporin A: a new therapeutic approach for pathogenic angiogenesis.; Induction of RANKL expression and osteoclast maturation by the binding of fibroblast growth factor 2 to heparan sulfate proteoglycan on rheumatoid synovial fibroblasts.; Acidic fibroblast growth factor in synovial cells.; Characterization of tissue outgrowth developed in vitro in patients with rheumatoid arthritis: involvement of T cells in the development of tissue outgrowth.; Lack of FGF-1 overexpression during autoimmune nephritis in the kidneys of MRL lpr/lpr mice.; Fibroblast growth factor-1 (FGF-1) enhances IL-2 production and nuclear translocation of NF-kappaB in FGF receptor-bearing Jurkat T cells.; Cloning and characterization of a novel upstream untranslated exon of the mouse Fgf-1 gene.; Cloning and characterization of the mouse Fgf-1 gene.; A novel in vitro assay for human angiogenesis.; Expression and functional expansion of fibroblast growth factor receptor T cells in rheumatoid synovium and peripheral blood of patients with rheumatoid arthritis.; Environmental influences on fatty acid composition of membranes from autoimmune MRL lpr/lpr mice.; Costimulation of human CD4+ T cells by fibroblast growth factor-1 (acidic fibroblast growth factor).; Detection of T cells responsive to a vascular growth factor in rheumatoid arthritis.; Coexpression of phosphotyrosine-containing proteins, platelet-derived growth factor-B, and fibroblast growth factor-1 in situ in synovial tissues of patients with rheumatoid arthritis and Lewis rats with adjuvant or streptococcal cell wall arthritis.; Platelet-derived growth factors and heparin-binding (fibroblast) growth factors in the synovial tissue pathology of rheumatoid arthritis.; Fibroblast growth factors: from genes to clinical applications.; Production of platelet derived growth factor B chain (PDGF-B/c-sis) mRNA and immunoreactive PDGF B-like polypeptide by rheumatoid synovium: coexpression with heparin binding acidic fibroblast growth factor-1.; Detection of high levels of heparin binding growth factor-1 (acidic fibroblast growth factor) in inflammatory arthritic joints.</td>
 </tr>
 </tbody>
 </table>
@@ -158,6 +167,10 @@ Plots
 ### eQTL Catalogue
 
     eqtl_table <- associated_eqtl(genes=c("ENSG00000164308"), p_cutoff=1)
+
+    ## [1] "Looking at SNPs"
+    ## [1] "Looking at Genes"
+
     kable(eqtl_table, row.names=F) 
 
 <table>
@@ -1578,6 +1591,9 @@ systemic lupus erythematosus; crohn’s disease
 
     eqtl_table <- associated_eqtl(snps = c("rs2910686", "rs7329174"),
                                   p_cutoff = 0.05)
+
+    ## [1] "Looking at SNPs"
+    ## [1] "Looking at Genes"
 
     kable(eqtl_table, row.names = F) 
 

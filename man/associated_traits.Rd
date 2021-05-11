@@ -4,7 +4,7 @@
 \alias{associated_traits}
 \title{What traits are known to be associated with snps (GWAS catalogue)}
 \usage{
-associated_traits(snps, delim = "; ", verbose = FALSE)
+associated_traits(snps = c(), delim = "; ", verbose = FALSE)
 }
 \arguments{
 \item{snps}{A list of snp names}

@@ -4,7 +4,13 @@
 \alias{associated_eqtl}
 \title{The known eQTL for snps or genes (eQTL catalogue)}
 \usage{
-associated_eqtl(snps = c(), genes = c(), p_cutoff = 1e-05, verbose = FALSE)
+associated_eqtl(
+  snps = c(),
+  genes = c(),
+  p_cutoff = 1,
+  verbose = FALSE,
+  ncores = 2
+)
 }
 \arguments{
 \item{snps}{A list of snp names}
@@ -14,6 +20,8 @@ associated_eqtl(snps = c(), genes = c(), p_cutoff = 1e-05, verbose = FALSE)
 \item{p_cutoff}{The pvalue cutoff for returning associations}
 
 \item{verbose}{Whether to spit out results}
+
+\item{ncores}{The number of cores to use}
 }
 \description{
 The known eQTL for snps or genes (eQTL catalogue)

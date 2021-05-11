@@ -50,7 +50,7 @@ enriched_pathways <- function(genes,
 
   if(is.null(dbs)) {
     file_name <- system.file("extdata","enrichr_libraries.csv",
-                             package = "geneAnnotations")
+                             package = "omicAnnotations")
     print(paste("Using", file_name, "databases"))
     enrichr_library <- read.table(file_name, sep=",",
                                   header=TRUE, stringsAsFactors = FALSE)
