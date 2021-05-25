@@ -55,7 +55,7 @@ gtex_eqtl <- function(genes=c("CYP26B1"),
       gtex_df <- gtex_list$metasoft
       if(length(gtex_df) > 0){
         gtex_df <- do.call(data.frame, gtex_df)
-        gtex_df <- gtex_df[, c("datasetId", "gencodeId",  "variantId",  "metaP" , 
+        gtex_df <- gtex_df[, c("datasetId", "gencodeId", "variantId", "metaP", 
                               colnames(gtex_df)[! colnames(gtex_df) %in% 
                                                   c("datasetId", "gencodeId", 
                                                     "metaP" , "variantId")])]
@@ -121,20 +121,20 @@ gtex_eqtl <- function(genes=c("CYP26B1"),
 #' @export
 
 gtex_heatmap <- function(df, 
-                         colour_low = "blue", 
-                         colour_high="white",
+                         colour_low = "white",
+                         colour_high = "blue", 
                          grid_colour=NULL, 
                          p_cutoff=0.05,
                          ...){
-  rownames(df) = paste0(df$Gene, "\n", df$variantId)
-  temp = df[, grepl("pValue", colnames(df)), drop=FALSE]
-  temp = -log10(temp)
+  rownames(df) <- paste0(df$Gene, "\n", df$variantId)
+  temp <- df[, grepl("pValue", colnames(df)), drop=FALSE]
+  temp <- -log10(temp)
   
-  colnames(temp) = gsub("\\.pValue", "", colnames(temp))
-  m <- max(temp, na.rm=T)
-  temp[is.na(temp)] = m + 1e-50
+  colnames(temp) <- gsub("\\.pValue", "", colnames(temp))
+  m <- max(temp, na.rm=TRUE)
+  temp[is.na(temp)] <- m + 1e-50
   
-  col_fun = colorRamp2(c(0, -log10(0.05), -log10(0.05), m), 
+  col_fun <- colorRamp2(c(0, -log10(0.05), -log10(0.05), m), 
                        c( "grey60", colour_low, colour_low, colour_high))
   
   Heatmap(t(temp),  name="-log10(p-value)",  col = col_fun, ..., 

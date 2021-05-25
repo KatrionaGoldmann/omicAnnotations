@@ -14,6 +14,8 @@ gene_summary(
   gene_types_df = NULL,
   ncbi_retmax = 50,
   disease_cutoff = 0,
+  disease_source = "curated",
+  disease_api_token = NULL,
   diseases = c("C20", "C05", "C10", "C17"),
   publication_keywords = c("Rheumatoid", "Autoimmune"),
   publication_split = "OR"
@@ -36,10 +38,16 @@ annotation name, the contains a
 character vector for grep command and general info about the gene. If NULL
 system.file("extdata","immune_genes.txt", package = "omicAnnotations")}
 
-\item{ncbi_retmax}{The number of NCBI hits to try. If you are struggling to find
-info try increasing this, although it will become slower (default=50).}
+\item{ncbi_retmax}{The number of NCBI hits to try. If you are struggling to
+find info try increasing this, although it will become slower (default=50).}
 
 \item{disease_cutoff}{The DisGeNET Score cutoff}
+
+\item{disease_source}{The source of the GDA (see
+https://www.disgenet.org/dbinfo)}
+
+\item{disease_api_token}{The authentication token by DisGenNet (Sign up here:
+https://www.disgenet.org/signup/). Then run get_api_key(email, password).}
 
 \item{diseases}{The MeSH disease classes to use
 ("C20"=Immune System Diseases)}

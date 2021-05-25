@@ -5,7 +5,8 @@ APIs in order to annotate SNPs and genes. In particular this uses
 databases by:
 
 <a href="https://www.ebi.ac.uk/"><img src="./images/ebi.png" alt="EBI" height="70" style="margin:5px;"/></a> <a href="https://www.qmul.ac.uk/whri/emr/"><img src="./images/emr.png" alt="EMR" height="70" style="margin:5px;"/></a> <a href="https://maayanlab.cloud/Enrichr/"><img src="./images/enrichr.png" alt="enrichr" height="70" style="margin:5px;"/></a> <a href="https://www.ncbi.nlm.nih.gov/"><img src="./images/ncbi.png" alt="ncbi" height="70" style="margin:5px; margin-bottom:15px;"/></a> <a href="https://www.gtexportal.org/home/"><img src="./images/gtex.png" alt="gtex" height="50" style="margin:5px;"/></a>
- <a href="https://pubmed.ncbi.nlm.nih.gov/"><img src="./images/pubmed.png" alt="pubmed" height="70" style="margin:5px;"/></a> 
+ <a href="https://pubmed.ncbi.nlm.nih.gov/"><img src="./images/pubmed.png" alt="pubmed" height="70" style="margin:5px;"/></a> </a>
+ <a href="https://www.disgenet.org/home/"><img src="./images/disgenet.png" alt="disgenet" height="70" style="margin:5px;"/></a>
 
 To install:
 
@@ -13,30 +14,38 @@ To install:
 
 ## Gene Annotations
 
+First, if you want to include associated diseases from
+[disGeNET](https://www.disgenet.org/home/) you will need to get an
+api\_key. To get this [sign up](https://www.disgenet.org/signup/) and
+get your API key either from [the API
+directly](https://www.disgenet.org/api/#/Authorization/apiAuth) or run:
+
+    api_key <- get_api_key(email="your email", password="your password")
+
 For example for the entire gene summary:
 
-    gene_df <- gene_summary(genes=c("FMOD", "FGF1", "SLAMF6"), diseases="C20")
+    gene_df <- gene_summary(genes=c("MS4A1", "FMOD", "FGF1", "SLAMF6"), 
+                            diseases="C20", 
+                            disease_api_token=api_key)
 
     ## [1] "Annotating from self-curated data..."
     ## [1] "Getting gene summaries..."
     ## [1] "Finding associated diseases..."
 
+    gene_df <- gene_df[, c("Gene", "description", "summary", "Associated_diseases")]
+
     kable(gene_df, format = "markdown", row.names = FALSE)
 
-<table style="width:100%;">
+<table>
 <colgroup>
 <col style="width: 0%" />
-<col style="width: 2%" />
-<col style="width: 2%" />
-<col style="width: 2%" />
-<col style="width: 70%" />
-<col style="width: 21%" />
+<col style="width: 3%" />
+<col style="width: 83%" />
+<col style="width: 12%" />
 </colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">Gene</th>
-<th style="text-align: left;">Type</th>
-<th style="text-align: left;">Curated_description</th>
 <th style="text-align: left;">description</th>
 <th style="text-align: left;">summary</th>
 <th style="text-align: left;">Associated_diseases</th>
@@ -44,28 +53,28 @@ For example for the entire gene summary:
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">FMOD</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;">fibromodulin</td>
-<td style="text-align: left;">Fibromodulin belongs to the family of small interstitial proteoglycans. The encoded protein possesses a central region containing leucine-rich repeats with 4 keratan sulfate chains, flanked by terminal domains containing disulphide bonds. Owing to the interaction with type I and type II collagen fibrils and in vitro inhibition of fibrillogenesis, the encoded protein may play a role in the assembly of extracellular matrix. It may also regulate TGF-beta activities by sequestering TGF-beta into the extracellular matrix. Sequence variations in this gene may be associated with the pathogenesis of high myopia. Alternative splicing results in multiple transcript variants. [provided by RefSeq, Jun 2013]</td>
-<td style="text-align: left;">Chronic Lymphocytic Leukemia; Lymphoma; B-Cell Lymphomas; Malignant lymphoma, lymphocytic, intermediate differentiation, diffuse; Adult Lymphoma; Childhood Lymphoma</td>
+<td style="text-align: left;">MS4A1</td>
+<td style="text-align: left;">membrane spanning 4-domains A1</td>
+<td style="text-align: left;">This gene encodes a member of the membrane-spanning 4A gene family. Members of this nascent protein family are characterized by common structural features and similar intron/exon splice boundaries and display unique expression patterns among hematopoietic cells and nonlymphoid tissues. This gene encodes a B-lymphocyte surface molecule which plays a role in the development and differentiation of B-cells into plasma cells. This family member is localized to 11q12, among a cluster of family members. Alternative splicing of this gene results in two transcript variants which encode the same protein. [provided by RefSeq, Jul 2008]</td>
+<td style="text-align: left;">Common Variable Immunodeficiency; Acquired Hypogammaglobulinemia; Immunoglobulin Deficiency, Late-Onset</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">FGF1</td>
-<td style="text-align: left;">Fibroblast Growth Factors</td>
+<td style="text-align: left;">FMOD</td>
+<td style="text-align: left;">fibromodulin</td>
+<td style="text-align: left;">Fibromodulin belongs to the family of small interstitial proteoglycans. The encoded protein possesses a central region containing leucine-rich repeats with 4 keratan sulfate chains, flanked by terminal domains containing disulphide bonds. Owing to the interaction with type I and type II collagen fibrils and in vitro inhibition of fibrillogenesis, the encoded protein may play a role in the assembly of extracellular matrix. It may also regulate TGF-beta activities by sequestering TGF-beta into the extracellular matrix. Sequence variations in this gene may be associated with the pathogenesis of high myopia. Alternative splicing results in multiple transcript variants. [provided by RefSeq, Jun 2013]</td>
 <td style="text-align: left;"></td>
-<td style="text-align: left;">fibroblast growth factor 1</td>
-<td style="text-align: left;">The protein encoded by this gene is a member of the fibroblast growth factor (FGF) family. FGF family members possess broad mitogenic and cell survival activities, and are involved in a variety of biological processes, including embryonic development, cell growth, morphogenesis, tissue repair, tumor growth and invasion. This protein functions as a modifier of endothelial cell migration and proliferation, as well as an angiogenic factor. It acts as a mitogen for a variety of mesoderm- and neuroectoderm-derived cells in vitro, thus is thought to be involved in organogenesis. Multiple alternatively spliced variants encoding different isoforms have been described. [provided by RefSeq, Jan 2009]</td>
-<td style="text-align: left;">Rheumatoid Arthritis; Asthma; Acquired Immunodeficiency Syndrome; Diabetes Mellitus, Insulin-Dependent; Multiple Myeloma; Multiple Sclerosis; HIV Encephalopathy; HIV encephalitis; Thyroid associated opthalmopathies</td>
 </tr>
 <tr class="odd">
+<td style="text-align: left;">FGF1</td>
+<td style="text-align: left;">fibroblast growth factor 1</td>
+<td style="text-align: left;">The protein encoded by this gene is a member of the fibroblast growth factor (FGF) family. FGF family members possess broad mitogenic and cell survival activities, and are involved in a variety of biological processes, including embryonic development, cell growth, morphogenesis, tissue repair, tumor growth and invasion. This protein functions as a modifier of endothelial cell migration and proliferation, as well as an angiogenic factor. It acts as a mitogen for a variety of mesoderm- and neuroectoderm-derived cells in vitro, thus is thought to be involved in organogenesis. Multiple alternatively spliced variants encoding different isoforms have been described. [provided by RefSeq, Jan 2009]</td>
+<td style="text-align: left;"></td>
+</tr>
+<tr class="even">
 <td style="text-align: left;">SLAMF6</td>
-<td style="text-align: left;"></td>
-<td style="text-align: left;"></td>
 <td style="text-align: left;">SLAM family member 6</td>
 <td style="text-align: left;">The protein encoded by this gene is a type I transmembrane protein, belonging to the CD2 subfamily of the immunoglobulin superfamily. This encoded protein is expressed on Natural killer (NK), T, and B lymphocytes. It undergoes tyrosine phosphorylation and associates with the Src homology 2 domain-containing protein (SH2D1A) as well as with SH2 domain-containing phosphatases (SHPs). It functions as a coreceptor in the process of NK cell activation. It can also mediate inhibitory signals in NK cells from X-linked lymphoproliferative patients. Alternative splicing results in multiple transcript variants encoding distinct isoforms.[provided by RefSeq, May 2010]</td>
-<td style="text-align: left;">Graves Disease; Lupus Erythematosus, Systemic; Autoimmune Diseases; Lupus Erythematosus; HIV Infections; Chronic Lymphocytic Leukemia; Lymphoma; X-Linked Lymphoproliferative Disorder</td>
+<td style="text-align: left;"></td>
 </tr>
 </tbody>
 </table>
@@ -104,7 +113,7 @@ Either using `associated_publications`:
 Or `gene_summary`:
 
     gene_df <- gene_summary(genes=c("FGF1"), 
-                            associated_diseases = FALSE,
+                            associated_diseases =FALSE,
                             gene_description=FALSE, 
                             publications = TRUE)
 
@@ -154,7 +163,7 @@ Looks for enriched pathways with gene sets using
       check_for_updates = FALSE)
 
 If that doesn’t work it may be because the website is down. This happens
-occasionsally. You can check by using:
+occasionally. You can check by using:
 
     listEnrichrDbs()
 
@@ -162,7 +171,7 @@ Plots
 
     lymphoid_pathways$plot
 
-![](ReadMe_files/figure-markdown_strict/unnamed-chunk-9-1.png)
+![](ReadMe_files/figure-markdown_strict/unnamed-chunk-11-1.png)
 
 ### eQTL Catalogue
 
@@ -2332,4 +2341,4 @@ T
     hm <- gtex_heatmap(df)
     draw(hm, heatmap_legend_side = "left")
 
-![](ReadMe_files/figure-markdown_strict/unnamed-chunk-14-1.png)
+![](ReadMe_files/figure-markdown_strict/unnamed-chunk-16-1.png)

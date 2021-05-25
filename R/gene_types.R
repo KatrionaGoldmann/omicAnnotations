@@ -1,8 +1,8 @@
 #' genes EMR are interested in
 #'
 #' @param genes A list of gene names
-#' @param types A data frame of annotation types with columns for: the a
-#' nnotation name, the contains a
+#' @param types A data frame of annotation types with columns for: the 
+#' annotation name, the contains a
 #' character vector for grep command and general info about the gene. If NULL
 #' immune_genes are used
 #' @importFrom utils data
@@ -13,7 +13,7 @@ gene_types <- function(genes, types=NULL){
   if(is.null(types)){
     file_name <- system.file("extdata","immune_genes.txt",
                              package="omicAnnotations")
-    types <- read.table(file_name, header=T)
+    types <- read.table(file_name, header=TRUE)
   }
   
   df <- data.frame("Gene"=genes, "Type"="", "Description"="", 

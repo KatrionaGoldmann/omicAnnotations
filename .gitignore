@@ -39,3 +39,7 @@ vignettes/*.pdf
 .Renviron
 .DS_Store
 geneAnnotations.Rproj
+code_review.md
+package_creator.R
+ReadMe.Rmd
+ReadMe.Rmd

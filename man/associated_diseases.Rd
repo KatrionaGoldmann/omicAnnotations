@@ -6,8 +6,10 @@
 \usage{
 associated_diseases(
   genes,
+  api_token,
   cutoff = 0,
   disease_classes = c("C20", "C05", "C10", "C17"),
+  source = "CURATED",
   delim = "; ",
   verbose = TRUE
 )
@@ -15,10 +17,15 @@ associated_diseases(
 \arguments{
 \item{genes}{A list of gene names}
 
+\item{api_token}{The authentication token by DisGenNet (Sign up here:
+https://www.disgenet.org/signup/). Then run get_api_key(email, password).}
+
 \item{cutoff}{The DisGeNET Score cutoff}
 
 \item{disease_classes}{The MeSH disease classes to use
 ("C20"=Immune System Diseases)}
+
+\item{source}{The source of the GDA (see https://www.disgenet.org/dbinfo)}
 
 \item{delim}{The deliminator for returning traits}
 

@@ -20,7 +20,7 @@ associated_eqtl <- function(snps=c(),
   print("Looking at SNPs")
   snp_df <- invisible(pbmclapply(snps, function(rssnp){
     
-    call1 = paste0("https://www.ebi.ac.uk/eqtl/api/associations/", rssnp)
+    call1 <- paste0("https://www.ebi.ac.uk/eqtl/api/associations/", rssnp)
     
     get_assoc <- httr::GET(call1)
     get_assoc_text <- httr::content(get_assoc, "text", encoding = "UTF-8")
@@ -35,14 +35,14 @@ associated_eqtl <- function(snps=c(),
   print("Looking at Genes")
   gene_df <- invisible(pbmclapply(genes, function(g){
     
-    call1 = paste0("https://www.ebi.ac.uk/eqtl/api/genes/", g, "/associations")
+    call1 <- paste0("https://www.ebi.ac.uk/eqtl/api/genes/", g, "/associations")
     
     get_assoc <- httr::GET(call1)
     get_assoc_text <- httr::content(get_assoc, "text", encoding = "UTF-8")
     if(get_assoc_text != "" & ! grepl("Internal Server Error", get_assoc_text)){
       get_assoc_json <- jsonlite::fromJSON(get_assoc_text, flatten = FALSE)
       traits <- unique(do.call(rbind, get_assoc_json$`_embedded`$associations))
-     # df <<- rbind(df, )
+      # df <<- rbind(df, )
       return(data.frame(traits))
     } else{ return(NULL)}
   }, mc.cores=ncores))
@@ -54,9 +54,10 @@ associated_eqtl <- function(snps=c(),
     ! all(is.na(as.numeric(as.character(x))))
   } )))
   
-  df[, numeric_cols] <- suppressWarnings(sapply( df[, numeric_cols], function(x)  {
-    as.numeric(as.character(x))
-  }))
+  df[, numeric_cols] <- suppressWarnings(
+    sapply( df[, numeric_cols], function(x)  {
+      as.numeric(as.character(x))
+    }))
   
   df <- df[df[, "pvalue"] <= p_cutoff, ]
   df <- df[order(df[, "pvalue"]), 

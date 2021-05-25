@@ -6,8 +6,8 @@
 \usage{
 gtex_heatmap(
   df,
-  colour_low = "blue",
-  colour_high = "white",
+  colour_low = "white",
+  colour_high = "blue",
   grid_colour = NULL,
   p_cutoff = 0.05,
   ...

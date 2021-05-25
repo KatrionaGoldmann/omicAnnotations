@@ -11,9 +11,13 @@
 #' annotation name, the contains a
 #' character vector for grep command and general info about the gene. If NULL
 #' system.file("extdata","immune_genes.txt", package = "omicAnnotations")
-#' @param ncbi_retmax The number of NCBI hits to try. If you are struggling to find
-#' info try increasing this, although it will become slower (default=50). 
+#' @param ncbi_retmax The number of NCBI hits to try. If you are struggling to 
+#' find info try increasing this, although it will become slower (default=50). 
 #' @param disease_cutoff The DisGeNET Score cutoff
+#' @param disease_source The source of the GDA (see 
+#' https://www.disgenet.org/dbinfo)
+#' @param disease_api_token The authentication token by DisGenNet (Sign up here: 
+#' https://www.disgenet.org/signup/). Then run get_api_key(email, password). 
 #' @param diseases The MeSH disease classes to use
 #' ("C20"=Immune System Diseases)
 #' @param publication_keywords Words to search for publications with the genes
@@ -31,43 +35,56 @@ gene_summary <- function(genes,
                          gene_types_df = NULL,
                          ncbi_retmax=50,
                          disease_cutoff=0,
+                         disease_source = "curated",
+                         disease_api_token=NULL,
                          diseases=c("C20", "C05", "C10", "C17"),
                          publication_keywords=c("Rheumatoid", "Autoimmune"),
                          publication_split="OR"){
   df <- data.frame("Gene"=genes)
-
+  
   if(gene_types){
     print("Annotating from self-curated data...")
-    temp = gene_types(genes, gene_types_df)
+    temp <- gene_types(genes, gene_types_df)
     df$Type <- temp$Type
     df$Curated_description <- temp$Description
   }
-
+  
   if(gene_description){
     print("Getting gene summaries...")
     temp <- data.frame(gene_description(genes))
     df <- cbind(df, temp[match(df$Gene, temp[, "Gene"]),
                          c("description", "summary")])
   }
-
+  
   if(associated_diseases){
-    print("Finding associated diseases...")
-    temp <- associated_diseases(genes, cutoff=disease_cutoff,
-                         disease_classes = diseases, verbose=FALSE)
-    df <- cbind(df, temp[match(df$Gene, temp$Gene), 2])
-    colnames(df)[ncol(df)] <- "Associated_diseases"
+    if(is.null(disease_api_token)){
+      warning(
+        paste("disease_api_token not given, cannot look for associated", 
+              "diseases. To include you must have an api token from", 
+              "disGenNet. Sign up here: https://www.disgenet.org/signup/.", 
+              "Then run get_api_key(email, password)"))
+    } else{
+      print("Finding associated diseases...")
+      temp <- associated_diseases(genes, cutoff=disease_cutoff,
+                                  disease_classes = diseases, 
+                                  api_token = disease_api_token,
+                                  source = disease_source,
+                                  verbose=FALSE)
+      df <- cbind(df, temp[match(df$Gene, temp$Gene), 2])
+      colnames(df)[ncol(df)] <- "Associated_diseases"
+    }
   }
-
+  
   if(publications){
     print("Getting publications from PubMed...")
     temp <- associated_publications(genes,
-                                 keywords = publication_keywords,
-                                 split=publication_split)
+                                    keywords = publication_keywords,
+                                    split=publication_split)
     df <- cbind(df, temp[match(df$Gene, temp$Gene), 2])
     colnames(df)[ncol(df)] <- "Publications"
   }
-
+  
   df[is.na(df)] <- ""
-
+  
   return(df)
 }

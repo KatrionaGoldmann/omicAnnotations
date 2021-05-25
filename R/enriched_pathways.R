@@ -140,7 +140,7 @@ enriched_pathways <- function(genes,
 #' @export
 enrichr_update_check <- function(){
   file_name <- system.file("extdata","enrichr_libraries.csv",
-                           package = "geneAnnotations")
+                           package = "omicAnnotations")
   enrichr_library <- read.table(file_name, sep=",",
                                 header=TRUE, stringsAsFactors = FALSE)
 

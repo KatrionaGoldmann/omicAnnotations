@@ -19,7 +19,7 @@ associated_traits <- function(snps=c(),
   lapply(snps, function(g){
     if(verbose) print(g)
     
-    call1 = paste0('https://www.ebi.ac.uk/gwas/',
+    call1 <- paste0('https://www.ebi.ac.uk/gwas/',
                    'rest/api/singleNucleotidePolymorphisms/',
                    g, '/associations?projection=associationBySnp')
     
