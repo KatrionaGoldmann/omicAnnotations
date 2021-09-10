@@ -62,7 +62,7 @@ gtex_eqtl <- function(genes=c("CYP26B1"),
       } else{
         gtex_df <- t(data.frame(c("gtex_v8", as.character(df$Gene[i]), 
                                  as.character(df$SNP[i]), NA, rep(NA, 49*4)), 
-                               stringsAsFactors = F))
+                               stringsAsFactors = FALSE))
         
         colnames(gtex_df) <- 
           c('datasetId', 'gencodeId',  'variantId', 'metaP',
