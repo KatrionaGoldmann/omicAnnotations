@@ -40,6 +40,8 @@ enriched_pathways <- function(genes,
                               plot_vline=NA,
                               check_for_updates=TRUE){
 
+  require(enrichR)
+  
   if(any(! libraries %in% c('Transcription', 'Pathways', 'Ontologies',
                             'Diseases_Drugs', 'Cell_Types', 'Misc'))){
     stop(paste("libraries must be in c('Transcription', 'Pathways',",

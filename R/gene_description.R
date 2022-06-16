@@ -34,6 +34,7 @@ gene_description <- function(genes, retmax=50){
         "aliases"=extract_from_esummary(info, "otheraliases"),
         "id"=extract_from_esummary(info, "uid"),
         stringsAsFactors = FALSE)
+      rownames(df) <- df$Gene
       
       df <- df[df$name == g, ]
       if(nrow(df) > 0){

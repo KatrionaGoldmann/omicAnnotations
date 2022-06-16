@@ -2,16 +2,19 @@
 #' @param genes A list of gene names
 #' @param keywords Words to search with the genes
 #' @param split search keywords using AND or OR (default is OR)
+#' @param long_format Logical whether to return one row per publication (long) or one per row per gene (wide)
 #' @importFrom pbapply pblapply
 #' @importFrom easyPubMed get_pubmed_ids fetch_pubmed_data custom_grep
+#' @importFrom tidyr separate_rows
 #' @export
 
 associated_publications <- function(genes, 
-                                 keywords=c("rheumatoid", 
-                                            "inflammatory", 
-                                            "autoimmune"), 
-                                 split="OR", 
-                                 verbose=TRUE){
+                                    keywords=c("rheumatoid", 
+                                               "inflammatory", 
+                                               "autoimmune"), 
+                                    split="OR", 
+                                    long_format=FALSE,
+                                    verbose=TRUE){
   
   df <- pblapply(genes, function(g){
     my_query <- paste(g, ' AND (', 
@@ -23,4 +26,12 @@ associated_publications <- function(genes,
   })
   
   do.call(rbind, df)
+  
+  if(long_format){
+    df <- df %>%
+      group_by(Gene) %>%
+      separate_rows(Publications, sep = "; ")
+  }
+  
+  return(df)
 }

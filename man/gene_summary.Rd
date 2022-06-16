@@ -7,10 +7,10 @@
 gene_summary(
   genes,
   verbose = TRUE,
-  gene_types = TRUE,
-  gene_description = TRUE,
-  associated_diseases = TRUE,
-  publications = FALSE,
+  get_gene_types = TRUE,
+  get_gene_description = TRUE,
+  get_associated_diseases = TRUE,
+  get_publications = FALSE,
   gene_types_df = NULL,
   ncbi_retmax = 50,
   disease_cutoff = 0,
@@ -26,11 +26,13 @@ gene_summary(
 
 \item{verbose}{Whether to split out the progress}
 
-\item{gene_types}{Highlight interesting genes?}
+\item{get_gene_types}{Highlight interesting genes?}
 
-\item{associated_diseases}{Whether to find the associated diseases}
+\item{get_gene_description}{Whether to find a summary of the gene info}
 
-\item{publications}{Do you want pulication info? (This is time consuming
+\item{get_associated_diseases}{Whether to find the associated diseases}
+
+\item{get_publications}{Do you want publication info? (This is time consuming
 if you have a lot of genes)}
 
 \item{gene_types_df}{A data frame of annotation types with columns for: the
@@ -56,8 +58,6 @@ https://www.disgenet.org/signup/). Then run get_api_key(email, password).}
 
 \item{publication_split}{Whether to use AND or OR when searching the
 publication keywords (default is OR)}
-
-\item{gene_summaries}{Whether to find a summary of the gene info}
 }
 \description{
 wrapper function to find all info about a list of genes

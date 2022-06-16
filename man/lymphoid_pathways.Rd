@@ -11,6 +11,6 @@ An object of class \code{list} of length 3.
 lymphoid_pathways
 }
 \description{
-Enriched pathways for lymphoid genes
+list of: enriched pathways, enriched genes, plot of enrichment
 }
 \keyword{datasets}

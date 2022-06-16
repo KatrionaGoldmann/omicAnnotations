@@ -8,6 +8,7 @@ associated_publications(
   genes,
   keywords = c("rheumatoid", "inflammatory", "autoimmune"),
   split = "OR",
+  long_format = FALSE,
   verbose = TRUE
 )
 }
@@ -17,6 +18,8 @@ associated_publications(
 \item{keywords}{Words to search with the genes}
 
 \item{split}{search keywords using AND or OR (default is OR)}
+
+\item{long_format}{Logical whether to return one row per publication (long) or one per row per gene (wide)}
 }
 \description{
 What publications are available?

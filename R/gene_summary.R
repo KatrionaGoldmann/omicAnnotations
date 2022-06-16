@@ -2,10 +2,10 @@
 #'
 #' @param genes List of gene names
 #' @param verbose Whether to split out the progress
-#' @param gene_types Highlight interesting genes?
-#' @param gene_summaries Whether to find a summary of the gene info
-#' @param associated_diseases Whether to find the associated diseases
-#' @param publications Do you want pulication info? (This is time consuming
+#' @param get_gene_types Highlight interesting genes?
+#' @param get_gene_description Whether to find a summary of the gene info
+#' @param get_associated_diseases Whether to find the associated diseases
+#' @param get_publications Do you want publication info? (This is time consuming
 #' if you have a lot of genes)
 #' @param gene_types_df A data frame of annotation types with columns for: the 
 #' annotation name, the contains a
@@ -28,10 +28,10 @@
 
 gene_summary <- function(genes,
                          verbose=TRUE,
-                         gene_types=TRUE,
-                         gene_description=TRUE,
-                         associated_diseases=TRUE,
-                         publications=FALSE,
+                         get_gene_types=TRUE,
+                         get_gene_description=TRUE,
+                         get_associated_diseases=TRUE,
+                         get_publications=FALSE,
                          gene_types_df = NULL,
                          ncbi_retmax=50,
                          disease_cutoff=0,
@@ -42,23 +42,23 @@ gene_summary <- function(genes,
                          publication_split="OR"){
   df <- data.frame("Gene"=genes)
   
-  if(gene_types){
+  if(get_gene_types){
     print("Annotating from self-curated data...")
     temp <- gene_types(genes, gene_types_df)
     df$Type <- temp$Type
     df$Curated_description <- temp$Description
   }
   
-  if(gene_description){
+  if(get_gene_description){
     print("Getting gene summaries...")
     temp <- data.frame(gene_description(genes))
     df <- cbind(df, temp[match(df$Gene, temp[, "Gene"]),
                          c("description", "summary")])
   }
   
-  if(associated_diseases){
+  if(get_associated_diseases){
     if(is.null(disease_api_token)){
-      warning(
+      stop(
         paste("disease_api_token not given, cannot look for associated", 
               "diseases. To include you must have an api token from", 
               "disGenNet. Sign up here: https://www.disgenet.org/signup/.", 
@@ -75,7 +75,7 @@ gene_summary <- function(genes,
     }
   }
   
-  if(publications){
+  if(get_publications){
     print("Getting publications from PubMed...")
     temp <- associated_publications(genes,
                                     keywords = publication_keywords,
